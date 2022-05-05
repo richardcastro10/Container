@@ -1,0 +1,43 @@
+﻿<div class="d-flex justify-content-center my-5">
+    <form name="form" novalidate class="d-flex flex-column align-items-center col-12 col-sm-12 col-md-5 shadow-sm p-4 bg-white">
+        <div class="col-12">
+            <label for="inputNumber">Digite a data e hora de início</label>
+            <input type="datetime-local" class="form-control" id="inputNumber" name="inputStart" placeholder="Exemplo: DD/MM/YYYY 00:00" required ng-model="vm.model.start" ng-class="{'is-invalid' : !form.inputStart.$valid}">
+            <div class="invalid-feedback" ng-if="!form.inputStart.$valid && form.inputStart.$touched">
+                Digite uma data inicial
+            </div>
+        </div>
+
+        <div class="col-12">
+            <label for="inputNumber">Digite a data e hora de fim</label>
+            <input type="datetime-local" class="form-control" id="inputNumber" name="inputEnd" placeholder="Exemplo: DD/MM/YYYY 00:00" ng-model="vm.model.end" ng-class="{'is-invalid' : !form.inputEnd.$valid}">
+            <div class="invalid-feedback" ng-if="!form.inputEnd.$valid && form.inputEnd.$touched">
+                Digite uma data final
+            </div>
+        </div>
+
+        <div class="col-12">
+            <label for="selectMovimentacao">Selecione o tipo de movimentação</label>
+            <select class="form-select col-md-4 mb-3" required aria-label="movimentacao" ng-model="vm.model.type" id="selectContainer" name="selectContainer" ng-options="c as c.description for c in vm.status track by c.id">
+                <option selected value="">Selecione...</option>
+            </select>
+            <div class="invalid-feedback" ng-if="!form.selectMovimentacao.$valid && form.selectMovimentacao.$touched">
+                Selecione um contâiner
+            </div>
+        </div>
+
+        <div class="col-12">
+            <label for="selectMovimentacao">Selecione um container</label>
+            <select class="form-select col-md-4 mb-3" aria-label="movimentacao" ng-model="vm.model.container" id="selectContainer" name="selectContainer" ng-options="c as c.number for c in vm.containers track by c.id">
+                <option selected value="">Selecione...</option>
+            </select>
+            <div class="invalid-feedback" ng-if="!form.selectContainer.$valid && form.selectContainer.$touched">
+                Selecione um contâiner
+            </div>
+        </div>
+        <div class="col-12 d-flex align-items-center justify-content-end">
+            <button class="btn btn-outline-primary" type="submit" ng-click="vm.goBack()">Cancelar</button>
+            <button class="btn btn-primary ms-3" type="submit" ng-click="vm.save(form)">Salvar</button>
+        </div>
+    </form>
+</div>

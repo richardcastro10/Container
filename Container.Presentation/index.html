@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" ng-app="container">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>crud containers</title>
+</head>
+<body style="min-width: 320px" class="bg-light">
+    <link rel="stylesheet" media="screen" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" media="screen" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+
+    <noscript>
+        <p>O coisinho precisa de um navegador que suporte a execução de scripts.</p>
+        <p>Este navegador não suporta ou está definido para não permitir a execução.</p>
+    </noscript>
+
+    <link rel="stylesheet" media="screen" href="bundles/styles?ver=%%Version%%">
+
+    <script src="bundles/components?ver=%%Version%%"></script>
+    <script src="bundles/application?ver=%%Version%%"></script>
+    <script src="node_modules/chart.js/dist/Chart.min.js"></script>
+
+    <div ng-include="TEMPLATES.Header.templateUrl" class="header-div"></div>
+</body>
+</html>

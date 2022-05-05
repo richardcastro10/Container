@@ -1,0 +1,33 @@
+﻿<header ng-controller="HeaderCtrl as vm">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+        <a class="navbar-brand" ui-sref="dashboard">
+            <i class="fa-solid fa-anchor" style="font-size: 1.5rem"></i>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" ng-click="vm.changeCollapseMenu()">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav" ng-class="{'show' : !vm.isCollapsed}"  ng-click="vm.changeCollapseMenu()">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Painel</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#/cliente">Clientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  href="#/movimentacao">Movimentações</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#/container">Containers</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<div ui-view class="container-fluid mt-2">
+</div>
+<ng-view></ng-view>
+<footer class="d-flex align-items-center justify-content-center mt-4 fixed-bottom">
+    <img src="../../../Content/img/footer_logo.png" width="50" height="30" />
+    <p class="logo_copy m-0 text-center">&#0169 RichardRocha </p>
+</footer>

@@ -1,0 +1,70 @@
+﻿<div class="container mt-5">
+    <div class="w-100 d-flex justify-content-between">
+        <div class="col-6">
+            <div class="input-group">
+                <input type="text" class="form-control" aria-label="Pesquisar" aria-describedby="button-addon1" ng-model="vm.filter.search" ng-enter="vm.list()" placeholder="Pesquisar...">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon2" ng-click="vm.list()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" ui-sref="container-edit({id: 0})">Novo</button>
+    </div>
+    <div class="card" ng-if="vm.isLoading">Carregando...</div>
+    <div ng-if="!vm.isLoading" infinite-scroll="vm.list(true)" infinite-scroll-distance="0" infinite-scroll-disabled="vm.filter.scrollDisabled" class="mt-2">
+        <table class="table w-auto caption-top">
+            <caption>{{vm.total}} registro(s)</caption>
+            <thead>
+                <tr>
+                    <th ng-click="vm.changeSortOrder('number')" class="col-2 text-break">
+                        Número
+                        <div ng-if="vm.filter.orderBy == 'number'">
+                            <i ng-show="!vm.filter.orderAsc" class="fas fa-angle-down"></i>
+                            <i ng-show="vm.filter.orderAsc" class="fas fa-angle-up"></i>
+                        </div>
+                    </th>
+                    <th class="col-2" ng-click="vm.changeSortOrder('type')">
+                        Tipo
+                        <div ng-if="vm.filter.orderBy == 'type'">
+                            <i ng-show="!vm.filter.orderAsc" class="fas fa-angle-down"></i>
+                            <i ng-show="vm.filter.orderAsc" class="fas fa-angle-up"></i>
+                        </div>
+                    </th>
+                    <th class="col-2 text-break" ng-click="vm.changeSortOrder('status')">
+                        Status
+                        <div ng-if="vm.filter.orderBy == 'status'">
+                            <i ng-show="!vm.filter.orderAsc" class="fas fa-angle-down"></i>
+                            <i ng-show="vm.filter.orderAsc" class="fas fa-angle-up"></i>
+                        </div>
+                    </th>
+                    <th class="col-3 text-break" ng-click="vm.changeSortOrder('category')">
+                        Categoria
+                        <div ng-if="vm.filter.orderBy == 'category'">
+                            <i ng-show="!vm.filter.orderAsc" class="fas fa-angle-down"></i>
+                            <i ng-show="vm.filter.orderAsc" class="fas fa-angle-up"></i>
+                        </div>
+                    </th>
+                    <th class="col-3 text-break">Cliente</th>
+                    <th class="col-1"></th>
+                    <th class="col-1"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(containerIndex, container) in vm.listModel">
+                    <td>{{container.number}}</td>
+                    <td>{{container.type}}</td>
+                    <td>{{container.status.description}}</td>
+                    <td>{{container.category.description}}</td>
+                    <td>{{container.client.name}}</td>
+                    <td>
+                        <a ui-sref="container-edit({id: '{{container.id}}'})" class="pointer-event link-dark"><i class="fa-solid fa-pen-to-square"></i></a>
+                    </td>
+                    <td>
+                        <a ng-click="vm.remove(containerIndex)" class="pointer-event link-dark"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

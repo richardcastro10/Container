@@ -1,0 +1,39 @@
+﻿<div class="d-flex justify-content-center my-5">
+    <form name="form" novalidate class="d-flex flex-column align-items-center col-12 col-sm-12 col-md-5">
+        <h1 class="h3 fw-normal">Editar cliente</h1>
+        <div class="col-12 mb-3">
+            <label for="inputName">Digite o nome do cliente</label>
+            <input type="text" class="form-control" minlength="2" maxlength="200" id="inputName" name="inputName" placeholder="Digite o nome..." required ng-model="vm.model.name" ng-class="{'is-invalid' : !form.inputName.$valid}">
+            <div class="invalid-feedback" ng-if="!form.inputName.$valid && form.inputName.$touched">
+                Digite um nome válido
+            </div>
+        </div>
+        <div class="col-12 mb-3">
+            <label for="document">Documento</label>
+            <input type="text" class="form-control" minlength="11" maxlength="14" name="document" id="document" placeholder="Digite o documento..." required ng-model="vm.model.document" ng-class="{'is-invalid' : !form.document.$valid}">
+            <div class="invalid-feedback" ng-if="!form.document.$valid && form.document.$touched">
+                Digite um documento válido
+            </div>
+        </div>
+
+        <div class="col-12 mb-3">
+            <label for="tel">Telefone</label>
+            <input type="tel" class="form-control" id="tel" name="tel" maxlength="20" placeholder="Digite o telefone..." required ng-model="vm.model.telephone" ng-class="{'is-invalid' : !form.tel.$valid}">
+            <div class="invalid-feedback" ng-if="!form.tel.$valid && form.tel.$touched">
+                Digite um telefone válido
+            </div>
+        </div>
+        <div class="col-12 mb-3">
+            <label for="description">Descrição</label>
+            <small>{{500 - vm.model.description.length}} caractere(s) restante(s)</small>
+            <textarea class="form-control" maxlength="500" id="description" name="description" placeholder="Digite uma descrição..." ng-model="vm.model.description" ng-class="{'is-invalid' : !form.description.$valid}"></textarea>
+            <div class="invalid-feedback" ng-if="!form.description.$valid && form.description.$touched">
+                Você excedeu o limite de caracteres
+            </div>
+        </div>
+        <div class="col-12 d-flex align-items-center justify-content-end">
+            <button class="btn btn-outline-primary" type="submit" ng-click="vm.goBack()">Cancelar</button>
+            <button class="btn btn-primary ms-3" type="submit" ng-click="vm.save(form)">Salvar</button>
+        </div>
+    </form>
+</div>

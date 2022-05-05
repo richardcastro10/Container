@@ -1,0 +1,101 @@
+﻿<div class="m-0">
+    <h1 class="h4 py-4 border-bottom">Movimentações</h1>
+    <div class="row m-0 px-0 justify-content-between py-4 border-bottom">
+        <div class="row col-12 col-md-8 m-0 p-0 justify-content-between">
+            <div class="m-0 p-0 col-12 col-md-5">
+                <div class="input-group">
+                    <input type="text" class="form-control" aria-label="Pesquisar" aria-describedby="button-addon1" ng-model="vm.filter.search" ng-enter="vm.list()" placeholder="Pesquisar...">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" ng-click="vm.list()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-5 my-2 my-md-0 mx-0 p-0">
+                <div class="input-group">
+                    <input type="date" class="form-control" aria-label="Pesquisar data" aria-describedby="button-addon1" ng-model="vm.filter.searchDate" ng-enter="vm.list()" placeholder="Pesquisar...">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" ng-click="vm.list()"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="btn btn-primary col-12 col-md-2 col-lg-1 my-2 m-md-0" ng-href="#/movimentacao-editar/0">Novo</a>
+    </div>
+    <div class="card" ng-if="vm.isLoading">Carregando...</div>
+    <div ng-if="!vm.isLoading" infinite-scroll="vm.list(true)" infinite-scroll-distance="0" infinite-scroll-disabled="vm.filter.scrollDisabled" class="mt-2">
+        <table class="caption-top table align-middle mb-0 bg-white table-borderless">
+            <caption>{{vm.total}} registro(s)</caption>
+            <thead class="bg-dark text-white">
+                <tr>
+                    <th ng-click="vm.changeSortOrder('start')" class="mouse-pointer">
+                        <div class="d-flex justify-content-evenly align-items-end">
+                            <p class="m-0">Início</p>
+                            <div ng-if="vm.filter.orderBy == 'start'">
+                                <span ng-show="vm.filter.orderAsc">
+                                    <i class="fa-solid fa-arrow-down-a-z"></i>
+                                </span>
+                                <span ng-show="!vm.filter.orderAsc">
+                                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </th>
+                    <th ng-click="vm.changeSortOrder('end')" class="mouse-pointer">
+                        <div class="d-flex justify-content-evenly align-items-end">
+                            <p class="m-0">Fim</p>
+                            <div ng-if="vm.filter.orderBy == 'end'">
+                                <span ng-show="vm.filter.orderAsc">
+                                    <i class="fa-solid fa-arrow-down-a-z"></i>
+                                </span>
+                                <span ng-show="!vm.filter.orderAsc">
+                                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </th>
+                    <th ng-click="vm.changeSortOrder('type')" class="mouse-pointer">
+                        <div class="d-flex justify-content-evenly align-items-end">
+                            <p class="m-0">Tipo</p>
+                            <div ng-if="vm.filter.orderBy == 'type'">
+                                <span ng-show="vm.filter.orderAsc">
+                                    <i class="fa-solid fa-arrow-down-a-z"></i>
+                                </span>
+                                <span ng-show="!vm.filter.orderAsc">
+                                    <i class="fa-solid fa-arrow-down-z-a"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </th>
+                    <th class="col-3 text-break">
+                        <p class="m-0">
+                            Nr. Container
+                        </p>
+                    </th>
+                    <th class="col-3 text-break">
+                        <p class="m-0">
+                            Cliente
+                        </p>
+                    </th>
+                    <th class="col-1"></th>
+                    <th class="col-1"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(movimentacaoIndex, movimentacao) in vm.listModel" class="py-2">
+                    <td>{{movimentacao.start | date : 'dd/MM/yyyy HH:mm'}}</td>
+                    <td>{{movimentacao.end | date : 'dd/MM/yyyy HH:mm'}}</td>
+                    <td>{{movimentacao.type.description}}</td>
+                    <td>{{movimentacao.container.number}}</td>
+                    <td>{{movimentacao.container.client.name}}</td>
+                    <td>
+                        <a ng-href="#/movimentacao-editar/{{movimentacao.id}}" class="pointer-event link-dark"><i class="fa-solid fa-pen-to-square"></i></a>
+                    </td>
+                    <td>
+                        <a ng-click="vm.remove(movimentacaoIndex)" class="pointer-event link-dark"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

@@ -1,0 +1,55 @@
+﻿<div class="container">
+    <form name="form" novalidate>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="inputNumber">Digite o código do container</label>
+                <input type="text" class="form-control" minlength="11" maxlength="11" id="inputNumber" name="inputNumber" placeholder="Exemplo: XXXX9999999..." required ng-model="vm.model.number" ng-class="{'is-invalid' : !form.inputNumber.$valid}" pattern="^[A-Za-z0-9]+$" ng-pattern-restrict>
+                <div class="invalid-feedback" ng-if="!form.inputNumber.$valid && form.inputNumber.$touched">
+                    Digite um código válido
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="selectType">Selecione o tipo de contâiner</label>
+                <select class="form-select col-md-4 mb-3" aria-label="Tipo" ng-model="vm.model.type" id="selectType" name="selectType" required>
+                    <option selected value="">Selecione...</option>
+                    <option value="20">20</option>
+                    <option value="40">40</option>
+                </select>
+                <div class="invalid-feedback" ng-if="!form.selectType.$valid && form.selectType.$touched">
+                    Selecione um tipo de contâiner
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label for="selectStatus">Selecione o status do contâiner</label>
+                <select class="form-select col-md-4 mb-3" aria-label="Status" ng-model="vm.model.status" id="selectStatus" name="selectStatus" ng-options="c as c.description for c in vm.status track by c.id" required>
+                    <option selected value="">Selecione...</option>
+                </select>
+                <div class="invalid-feedback" ng-if="!form.selectStatus.$valid && form.selectStatus.$touched">
+                    Selecione um status para o contâiner
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label for="selectCategory">Selecione a categoria do contâiner</label>
+                <select class="form-select col-md-4 mb-3" aria-label="Categoria" ng-model="vm.model.category" id="selectCategory" name="selectCategory" ng-options="c as c.description for c in vm.categories track by c.id" required>
+                    <option selected value="">Selecione...</option>
+                </select>
+                <div class="invalid-feedback" ng-if="!form.selectCategory.$valid && form.selectCategory.$touched">
+                    Selecione a categoria de contâiner
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label for="selectClient">Selecione um cliente</label>
+                <select class="form-select col-md-4 mb-3" aria-label="Cliente" ng-model="vm.model.client" id="selectClient" name="selectClient" ng-options="c as c.name for c in vm.clients track by c.id" required>
+                    <option selected value="">Selecione...</option>
+                </select>
+                <div class="invalid-feedback" ng-if="!form.selectClient.$valid && form.selectClient.$touched">
+                    Selecione a categoria de contâiner
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit" ng-click="vm.save(form)">Salvar</button>
+    </form>
+</div>

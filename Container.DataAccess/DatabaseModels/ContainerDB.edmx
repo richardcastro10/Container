@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ContainerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Documento" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Telefone" Type="varchar" MaxLength="20" />
+          <Property Name="Descricao" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Container">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Numero" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="Tipo" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Categoria" Type="int" Nullable="false" />
+          <Property Name="UsuarioId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Movimentacao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Tipo" Type="int" Nullable="false" />
+          <Property Name="Inicio" Type="datetime" Nullable="false" />
+          <Property Name="Fim" Type="datetime" />
+          <Property Name="ContainerId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Container_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Container" Type="Self.Container" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Container">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movimentacao_Container">
+          <End Role="Container" Type="Self.Container" Multiplicity="1" />
+          <End Role="Movimentacao" Type="Self.Movimentacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Container">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Movimentacao">
+              <PropertyRef Name="ContainerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ContainerModelStoreContainer">
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Container" EntityType="Self.Container" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Movimentacao" EntityType="Self.Movimentacao" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Container_Cliente" Association="Self.FK_Container_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Container" EntitySet="Container" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movimentacao_Container" Association="Self.FK_Movimentacao_Container">
+            <End Role="Container" EntitySet="Container" />
+            <End Role="Movimentacao" EntitySet="Movimentacao" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ContainerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ContainerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cliente" EntityType="ContainerModel.Cliente" />
+          <EntitySet Name="Container" EntityType="ContainerModel.Container" />
+          <EntitySet Name="Movimentacao" EntityType="ContainerModel.Movimentacao" />
+          <AssociationSet Name="FK_Container_Cliente" Association="ContainerModel.FK_Container_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Container" EntitySet="Container" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Movimentacao_Container" Association="ContainerModel.FK_Movimentacao_Container">
+            <End Role="Container" EntitySet="Container" />
+            <End Role="Movimentacao" EntitySet="Movimentacao" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Documento" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Descricao" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Container" Relationship="ContainerModel.FK_Container_Cliente" FromRole="Cliente" ToRole="Container" />
+        </EntityType>
+        <EntityType Name="Container">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Numero" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="Tipo" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Categoria" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="ContainerModel.FK_Container_Cliente" FromRole="Container" ToRole="Cliente" />
+          <NavigationProperty Name="Movimentacao" Relationship="ContainerModel.FK_Movimentacao_Container" FromRole="Container" ToRole="Movimentacao" />
+        </EntityType>
+        <EntityType Name="Movimentacao">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Tipo" Type="Int32" Nullable="false" />
+          <Property Name="Inicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Fim" Type="DateTime" Precision="3" />
+          <Property Name="ContainerId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Container" Relationship="ContainerModel.FK_Movimentacao_Container" FromRole="Movimentacao" ToRole="Container" />
+        </EntityType>
+        <Association Name="FK_Container_Cliente">
+          <End Type="ContainerModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="ContainerModel.Container" Role="Container" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Container">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Movimentacao_Container">
+          <End Type="ContainerModel.Container" Role="Container" Multiplicity="1" />
+          <End Type="ContainerModel.Movimentacao" Role="Movimentacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Container">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Movimentacao">
+              <PropertyRef Name="ContainerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ContainerModelStoreContainer" CdmEntityContainer="ContainerEntities">
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="ContainerModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+                <ScalarProperty Name="Documento" ColumnName="Documento" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Container">
+            <EntityTypeMapping TypeName="ContainerModel.Container">
+              <MappingFragment StoreEntitySet="Container">
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Movimentacao">
+            <EntityTypeMapping TypeName="ContainerModel.Movimentacao">
+              <MappingFragment StoreEntitySet="Movimentacao">
+                <ScalarProperty Name="ContainerId" ColumnName="ContainerId" />
+                <ScalarProperty Name="Fim" ColumnName="Fim" />
+                <ScalarProperty Name="Inicio" ColumnName="Inicio" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

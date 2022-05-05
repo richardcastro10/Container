@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2361FB64-E3AA-4299-BDC8-B4AB24C2812A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Container.Shared</RootNamespace>
+    <AssemblyName>Container.Shared</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DTOs\ContainerDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ContainerDB.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DTOs\Cliente.cs">
+      <DependentUpon>ContainerDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTOs\Container.cs">
+      <DependentUpon>ContainerDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTOs\ContainerDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContainerDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DTOs\Movimentacao.cs">
+      <DependentUpon>ContainerDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Enums\EnumExtension.cs" />
+    <Compile Include="Enums\EnumTipoMovimentacao.cs" />
+    <Compile Include="Enums\EnumTipoStatus.cs" />
+    <Compile Include="Enums\EnumTipoCategoria.cs" />
+    <Compile Include="Interfaces\IClienteCore.cs" />
+    <Compile Include="Interfaces\IClienteDataAccesscs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
